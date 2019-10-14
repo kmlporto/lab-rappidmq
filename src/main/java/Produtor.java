@@ -11,7 +11,7 @@ public class Produtor {
         connectionFactory.setHost("localhost");
         connectionFactory.setPort(5672);
 
-        String NOME_FILA = "filaOla2";
+        String NOME_FILA = "filaOla";
         try(
             //criacao de uma coneccao
             Connection connection = connectionFactory.newConnection();
@@ -21,7 +21,7 @@ public class Produtor {
 
             //Declaracao da fila. Se nao existir ainda no queue manager, serah criada. Se jah existir, e foi criada com
             // os mesmos parametros, pega a referencia da fila. Se foi criada com parametros diferentes, lanca excecao
-            channel.queueDeclare(NOME_FILA, true, false, false, null);
+            channel.queueDeclare(NOME_FILA, false, false, false, null);
             String mensagem = "Olá mundo!";
             //publica uma mensagem na fila
             channel.basicPublish("", NOME_FILA, null, mensagem.getBytes());

@@ -7,7 +7,7 @@ public class Consumidor {
     public static void main(String[] args) throws Exception {
         System.out.println("Consumidor");
 
-        String NOME_FILA = "filaOla2";
+        String NOME_FILA = "filaOla";
 
         //criando a fabrica de conexoes e criando uma conexao
         ConnectionFactory connectionFactory = new ConnectionFactory();
@@ -16,7 +16,7 @@ public class Consumidor {
 
         //criando um canal e declarando uma fila
         Channel canal = conexao.createChannel();
-        canal.queueDeclare(NOME_FILA, true, false, false, null);
+        canal.queueDeclare(NOME_FILA, false, false, false, null);
 
         //Definindo a funcao callback
         DeliverCallback callback = (consumerTag, delivery) -> {
@@ -26,5 +26,6 @@ public class Consumidor {
 
         //Consome da fila
         canal.basicConsume(NOME_FILA, true, callback, consumerTag -> {});
+        System.out.println("Continuarei executando outras atividades enquanto não chega mensagem...");
     }
 }
